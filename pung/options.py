@@ -6,3 +6,4 @@ def main(screen):
 
     run_options = True
     while run_options:
+        pygame.display.update()
