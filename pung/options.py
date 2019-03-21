@@ -4,9 +4,9 @@ from pygame.locals import *
 
 def main(screen):
     pygame.font.init()
-    FONT = pygame.font.Font("data/font/Anurati-Regular.otf", 90)
-    FONT_SHADOW = pygame.font.Font("data/font/Anurati-Regular.otf", 90)
-    MENU_OPTIONS = pygame.image.load('data/options/tmp.jpg')
+    FONT = pygame.font.Font("data/Anurati-Regular.otf", 85)
+    FONT_SHADOW = pygame.font.Font("data/Anurati-Regular.otf", 85)
+    MENU_OPTIONS = pygame.image.load('data/menu/OPTIONS_MAIN.jpg')
     SWITCH_SOUND = pygame.mixer.Sound('data/sound_effects/DM-CGS-21.wav')
     switch = 1
     run_options = True
@@ -19,11 +19,11 @@ def main(screen):
         screen.blit(MENU_OPTIONS, (0, 0))
 
         if switch == 1:
-            player_text_shadow = FONT_SHADOW.render(player_one_name, False, Color("#9400D3"))
-            screen.blit(player_text_shadow, (205, 95))
+            player_text_shadow = FONT_SHADOW.render(player_one_name, False, Color("#ba157e"))
+            screen.blit(player_text_shadow, (277, 118))
 
-        player_text = FONT.render(player_one_name, False, Color("#FF4500"))
-        screen.blit(player_text, (200, 100))
+        player_text = FONT.render(player_one_name, False, Color("#df8f2f"))
+        screen.blit(player_text, (275, 120))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

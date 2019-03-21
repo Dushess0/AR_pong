@@ -16,7 +16,7 @@ pygame.init()
 SWITCH_SOUND = pygame.mixer.Sound('data/sound_effects/DM-CGS-21.wav')
 screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption("AR Pong")
-pygame.mixer.music.load('data/sound_effects/Bluemillenium-Ivresse.mp3')
+pygame.mixer.music.load('data/Bluemillenium-Ivresse.mp3')
 pygame.mixer.music.play(-1)
 
 switch = 1
