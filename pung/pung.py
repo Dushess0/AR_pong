@@ -7,7 +7,7 @@ import statistics
 from settings import *
 
 #сalibration
-#show model . model continuosky updating in crop function 
+#show model . model continuosky updating in crop function
 def сalibrate ( refPt ):
     global model
     while True:
@@ -189,19 +189,22 @@ while 2+2!=5:
     key=cv2.waitKey(20)
 
     if key == ord('k'):
-        players_model = int (input("You want to calibrate : [ 1 / 2 ] ? ") )
+        cv2.putText(image, "Choose  model you want to calibrate : [ 1 / 2 ] ?", (250, 100), font, 1, (19, 19, 118), 5,
+                    cv2.LINE_AA)
+        cv2.imshow('frame', image)
+        # players_model = int (input("You want to calibrate : [ 1 / 2 ] ? ") )
+        players_model = cv2.waitKey(0)
         refPt = []
         cropping = False
         # running = True
         model = cv2.flip(capture.read()[1] , 3 )
         clone = model.copy()
-        if players_model == 1:
+        if players_model == ord('1'):
             player_1_template = сalibrate( refPt )
-        elif players_model == 2:
+        elif players_model == ord('2'):
             player_2_template = сalibrate( refPt )
 
 #end
-
 
     if player_1_template != []:
         find_template(image , player_1_template , player_1 , threshold=0.6)
