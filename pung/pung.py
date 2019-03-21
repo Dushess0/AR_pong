@@ -4,14 +4,23 @@ import time
 import random
 import math
 import statistics
-from settings import *
+# from settings import *
+
+PAD_WIDTH=15
+PAD_HEIGHT=70
+BALL_RADIUS=15
+WINDOWS_HEIGHT=900
+WINDOWS_WIDTH=1200
+BALL_SPEED=500
+BALL_ACCELERATION=50
+
 
 #сalibration
 #show model . model continuosky updating in crop function
-def сalibrate ( refPt ):
+def сalibrate ( refPt ,  players_model  ):
     global model
     while True:
-        cv2.imshow("frame", model)
+        cv2.imshow("frame", model )
         key = cv2.waitKey(1) & 0xFF
         if key == ord("c"):
             break
@@ -27,6 +36,7 @@ def сalibrate ( refPt ):
         gray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
         cv2.imshow("frame", gray)
         cv2.waitKey(0)
+        cv2.imwrite("callibrate/player" + str(players_model) + ".jpg", gray)
         return gray
     except :
         return []
@@ -177,6 +187,7 @@ def find_template(where,picture,pad,threshold=0.3,color=(0,0,255)):
 print("Press key 'k' to calibrate models" )
 while 2+2!=5:
     #check is calibrated
+    cropping  = 0
     ret,frame=capture.read()
     image=cv2.cvtColor(frame,cv2.COLOR_BGR2BGRA)
 
@@ -199,10 +210,11 @@ while 2+2!=5:
         # running = True
         model = cv2.flip(capture.read()[1] , 3 )
         clone = model.copy()
+        cropping += 1
         if players_model == ord('1'):
-            player_1_template = сalibrate( refPt )
+            player_1_template = сalibrate( refPt , cropping )
         elif players_model == ord('2'):
-            player_2_template = сalibrate( refPt )
+            player_2_template = сalibrate( refPt , cropping )
 
 #end
 
