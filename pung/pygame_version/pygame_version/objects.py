@@ -21,7 +21,7 @@ class Pad:
    
     def draw(self,screen):
         screen.blit(self.image,(self.pos[0]-PAD_WIDTH,self.pos[1]-PAD_HEIGHT))
-    def move(self,where,what,threshold=0.3,sensity=480):    
+    def move(self,where,what,threshold=0.3,sensetivity=480,delta=500):    
         
         res = cv2.matchTemplate(where,what,cv2.TM_CCOEFF_NORMED)
         w, h = what.shape[::-1]
@@ -35,7 +35,7 @@ class Pad:
         if Y==[]:
             return 
         mean_y=int(statistics.median(Y))
-        self.pos[1]=((2*mean_y+h)/2/sensity)*(WINDOWS_HEIGHT+500)-250
+        self.pos[1]=((2*mean_y+h)/2/sensetivity)*(WINDOWS_HEIGHT+delta)-250
 
 
 class Ball:
