@@ -41,6 +41,7 @@ while run:
             if event.key == K_UP or event.key == K_w:
                 switch += 1
                 SWITCH_SOUND.play()
+
             elif event.key == K_DOWN or event.key == K_s:
                 switch -= 1
                 SWITCH_SOUND.play()
