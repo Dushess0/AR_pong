@@ -19,7 +19,7 @@ screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption("AR Pong")
 pygame.mixer.music.load('data/Bluemillenium-Ivresse.mp3')
 pygame.mixer.music.play(-1)
-
+samples = {}
 template1 = cv2.imread('green.jpg',0)
 template2 = cv2.imread('phone2.jpg',0)
 
@@ -52,10 +52,14 @@ while run:
                     pygame_version.game_loop(template1, template2)
                 elif switch == 2:
                     #profile pictures choosen by player
-                    samples = options.main(screen)
-                    template1 = cv2.imread(samples[0] , 0)
-                    template2 = cv2.imread(samples[1] , 0)
-                    print(template1 , template2)
+                    samples = options.main(screen , samples)
+                    if 0 in samples.keys():
+                        template1 = cv2.imread(samples[0] , 0)
+
+                    if 1 in samples.keys():
+                        template2 = cv2.imread(samples[1] , 0)
+
+                    print(samples)
                 elif switch == 3:
                     run = False
 

@@ -25,7 +25,6 @@ class Player_profile:
     def draw_image(self , profile):
         if self.image_path not in profile.values():
             self.screen.blit(self.enlarged, IMG_PLACE)
-            print(self.image_path)
             pygame.display.update()
             return True
         else:
@@ -52,10 +51,10 @@ def print_object (models , screen , font):
                     (  (model.position[0]  + model.item_width) / 2, model.position[1] ))
     pygame.display.update()
 
-def main(screen):
+def main(screen , samples):
 
     #dictionary of profile images pathes
-    profile = {}
+    profile = samples
 
 
     pygame.font.init()
@@ -67,6 +66,8 @@ def main(screen):
     run_options = True
 
     player_names = {0:"PLAYER ONE" , 1:"PLAYER TWO"}
+
+
     player_one_id = 0
     player_two_id = 1
     #current player
@@ -107,15 +108,16 @@ def main(screen):
                     screen.blit(player_text, (275, 120))
 
                 elif event.key == K_RIGHT or event.key == K_a:
-                    print(profile)
-                    while not models[i].draw_image(profile) and i < len(models) - 1:
-                        i =  (i + 1 )
-                    if i < len(models) - 1 :
-                        i += 1
+                    while not models[i].draw_image(profile) :
+                        i =  (i + 1 ) % len(models)
+                    i = (i + 1) % len(models)
+
                 elif event.key == K_LEFT or event.key == K_d:
                     if i > 0:
                         i -= 1
-                    while not models[i].draw_image(profile) and i > 0:
+                    elif i == 0:
+                        i = len(models) - 1
+                    while not models[i].draw_image(profile):
                         i =  (i - 1 )
                     models[i].draw_image(profile)
                     screen.blit(player_text, (275, 120))
@@ -125,6 +127,7 @@ def main(screen):
                     read_directory(screen , filenames , models)
                 #accept picture and change the player
                 elif event.key == K_o:
+                    #accept
                     screen.blit(MENU_OPTIONS, (0, 0))
                     profile[current_player] = models[i].image_path
                     #to write in more grammarly correct form
