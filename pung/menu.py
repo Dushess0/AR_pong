@@ -53,8 +53,8 @@ while run:
                 elif switch == 2:
                     #profile pictures choosen by player
                     samples = options.main(screen)
-                    template1 = samples[0]
-                    template2 = samples[1]
+                    template1 = cv2.imread(samples[0] , 0)
+                    template2 = cv2.imread(samples[1] , 0)
                     print(template1 , template2)
                 elif switch == 3:
                     run = False
