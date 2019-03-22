@@ -7,8 +7,8 @@ template1 = cv2.imread('green.jpg',0)
 
 
 capture=cv2.VideoCapture(0)
-capture.set(4,1080)
-capture.set(3,1500)
+capture.set(cv2.CAP_PROP_FRAME_WIDTH,1080)
+capture.set(cv2.CAP_PROP_FRAME_HEIGHT,1500)
 
 def find_template(where,picture,threshold=0.3,color=(0,0,255)):
     

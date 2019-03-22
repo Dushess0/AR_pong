@@ -52,8 +52,10 @@ def crop(event, x, y, flags, params):
 
 
 def make_a_sample():
-    global model , refPt , clone , cropping
+    global model , refPt , clone , cropping , resp
     capture=cv2.VideoCapture(0)
+    capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
+    capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 1500)
     cv2.namedWindow('frame',cv2.WINDOW_NORMAL)
     cv2.setMouseCallback("frame", crop)
 
