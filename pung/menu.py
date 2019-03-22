@@ -1,7 +1,8 @@
 import pygame
-import pung
 import options
+import pygame_version
 from pygame.locals import *
+import cv2
 
 
 MENU_PLAY = pygame.image.load('data/menu/PLAY.jpg')
@@ -18,6 +19,9 @@ screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption("AR Pong")
 pygame.mixer.music.load('data/Bluemillenium-Ivresse.mp3')
 pygame.mixer.music.play(-1)
+
+template1 = cv2.imread('green.jpg',0)
+template2 = cv2.imread('phone2.jpg',0)
 
 switch = 1
 run = True
@@ -44,9 +48,7 @@ while run:
             elif event.key == K_RETURN:
                 if switch == 1:
 
-                    pygame.quit()
-
-                    pung.main()
+                    pygame_version.game_loop(template1, template2)
                 elif switch == 2:
                     options.main(screen)
                 elif switch == 3:

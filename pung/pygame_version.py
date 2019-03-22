@@ -63,6 +63,4 @@ def game_loop(template1,template2):
         
         CLOCK.tick(FPS)
 
-template1 = cv2.imread('green.jpg',0)
-template2 = cv2.imread('phone2.jpg',0)
-game_loop(template1,template2)
+
