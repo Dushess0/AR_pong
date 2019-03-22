@@ -51,7 +51,11 @@ while run:
 
                     pygame_version.game_loop(template1, template2)
                 elif switch == 2:
-                    options.main(screen)
+                    #profile pictures choosen by player
+                    samples = options.main(screen)
+                    template1 = samples[0]
+                    template2 = samples[1]
+                    print(template1 , template2)
                 elif switch == 3:
                     run = False
 

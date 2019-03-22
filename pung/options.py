@@ -4,6 +4,8 @@ from settings import *
 from os import path , walk
 from pygame.locals import *
 
+IMG_PLACE = ( WIN_WIDTH * 0.6 ,WIN_HEIGHT * 0.4)
+
 class Player_profile:
     def __init__(self, img_name , position , screen ):
         self.position = position
@@ -11,29 +13,23 @@ class Player_profile:
         self.image_name = img_name
         self.image_path = path.join(self.game_folder, img_name)
         self.image = pygame.image.load(self.image_path)
-        self.enlarged = pygame.transform.scale(self.image, (int(WINDOWS_WIDTH * 0.25) ,int(WINDOWS_HEIGHT * 0.25)))
+        self.enlarged = pygame.transform.scale(self.image, (int(WIN_WIDTH * 0.35) ,int(WIN_HEIGHT * 0.5)))
         self.screen = screen
-        self.start_position =  WINDOWS_HEIGHT * 0.3
         # self.color = (255 , 255 , 255 )
-        self.item_height = WINDOWS_HEIGHT * 0.5 / 5
-        self.item_width = WINDOWS_WIDTH * 0.3
-        self.rect = ( position[0] ,position[1]  + self.start_position ,  self.item_width , self.item_height )
+        # self.item_height = WIN_HEIGHT * 0.5 / 5
+        # self.item_width = WIN_WIDTH * 0.3
         #is object selected now
         self.active = False
-    #
-    # def change_color(self):
-    #     if self.active:
-    #         self.color = (102, 255, 204, 0.5)
-    #     else:
-    #         self.color = (255 , 255 , 255 , 0)
 
 
-
-    def draw_image(self):
-        pygame.draw.rect(self.screen, ACTIVE, IMAGE_PLACE, 2)
-        self.screen.blit(self.enlarged, IMG_PLACE)
-        print(self.image_path)
-        pygame.display.update()
+    def draw_image(self , profile):
+        if self.image_path not in profile.values():
+            self.screen.blit(self.enlarged, IMG_PLACE)
+            print(self.image_path)
+            pygame.display.update()
+            return True
+        else:
+            return False
 
 
 
@@ -57,6 +53,11 @@ def print_object (models , screen , font):
     pygame.display.update()
 
 def main(screen):
+
+    #dictionary of profile images pathes
+    profile = {}
+
+
     pygame.font.init()
     FONT = pygame.font.Font("data/Anurati-Regular.otf", 85)
     FONT_SHADOW = pygame.font.Font("data/Anurati-Regular.otf", 85)
@@ -65,23 +66,30 @@ def main(screen):
     switch = 1
     run_options = True
 
-    player_one_name = "PLAYER ONE"
-    player_two_name = "PLAYER TWO"
+    player_names = {0:"PLAYER ONE" , 1:"PLAYER TWO"}
+    player_one_id = 0
+    player_two_id = 1
+    #current player
+    current_player = player_one_id
 
     filenames = []
     models = []
-    models[0].draw_image()
+    read_directory(screen , filenames , models)
+    models[0].draw_image(profile)
     i = 1
-
+    #here
+    screen.blit(MENU_OPTIONS, (0, 0))
+    #
     while run_options:
-
-        screen.blit(MENU_OPTIONS, (0, 0))
+        # moved upper to prevent unstoppable updating of background
+        # screen.blit(MENU_OPTIONS, (0, 0))
+        #
 
         if switch == 1:
-            player_text_shadow = FONT_SHADOW.render(player_one_name, False, Color("#ba157e"))
+            player_text_shadow = FONT_SHADOW.render(player_names[current_player], False, Color("#ba157e"))
             screen.blit(player_text_shadow, (277, 118))
 
-        player_text = FONT.render(player_one_name, False, Color("#df8f2f"))
+        player_text = FONT.render(player_names[current_player], False, Color("#df8f2f"))
         screen.blit(player_text, (275, 120))
 
         for event in pygame.event.get():
@@ -91,20 +99,38 @@ def main(screen):
                 if event.key == K_UP or event.key == K_w:
                     switch += 1
                     SWITCH_SOUND.play()
+                    screen.blit(player_text, (275, 120))
+
                 elif event.key == K_DOWN or event.key == K_s:
                     switch -= 1
                     SWITCH_SOUND.play()
+                    screen.blit(player_text, (275, 120))
+
                 elif event.key == K_RIGHT or event.key == K_a:
-                    models[i].draw_image()
+                    print(profile)
+                    while not models[i].draw_image(profile) and i < len(models) - 1:
+                        i =  (i + 1 )
                     if i < len(models) - 1 :
                         i += 1
                 elif event.key == K_LEFT or event.key == K_d:
                     if i > 0:
                         i -= 1
-                    models[i].draw_image()
+                    while not models[i].draw_image(profile) and i > 0:
+                        i =  (i - 1 )
+                    models[i].draw_image(profile)
+                    screen.blit(player_text, (275, 120))
+
                 elif event.key == K_c:
                     make_a_sample()
                     read_directory(screen , filenames , models)
+                #accept picture and change the player
+                elif event.key == K_o:
+                    screen.blit(MENU_OPTIONS, (0, 0))
+                    profile[current_player] = models[i].image_path
+                    #to write in more grammarly correct form
+                    current_player = not current_player
+
+
 
 
                 elif event.key == K_RETURN:
@@ -113,5 +139,6 @@ def main(screen):
 
                 elif event.key == K_ESCAPE:
                     run_options = False
+                    return profile
 
         pygame.display.update()
