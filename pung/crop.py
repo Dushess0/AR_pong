@@ -8,6 +8,10 @@ from pygame.locals import *
 
 refPt = []
 
+
+# cv2.createTrackbar("AR Pong" , value, count, onChange)
+# сalibration
+# show model . model continuosky updating in crop function
 def calibrate(refPt):
     global model, resp
     while True:
@@ -36,6 +40,7 @@ def calibrate(refPt):
         return []
 
 
+# draw rectangle and grop the image
 def crop(event, x, y, flags, params):
     global refPt, cropping, model, clone
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -51,7 +56,7 @@ def crop(event, x, y, flags, params):
         cropping = False
 
 
-
+# end
 
 
 def make_a_sample(screen):
@@ -59,6 +64,8 @@ def make_a_sample(screen):
     capture = cv2.VideoCapture(0)
     capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
     capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 1500)
+    # cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
+    # cv2.setMouseCallback("frame", crop)
 
     camera_on = True
     run = True
@@ -73,7 +80,9 @@ def make_a_sample(screen):
             image = cv2.flip(image, 3)
             current_image = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
 
-    
+        # cv2.imshow('frame', image)
+        # key = cv2.waitKey(20)
+        # print(key)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -88,7 +97,7 @@ def make_a_sample(screen):
                         model = cv2.cvtColor(model, cv2.COLOR_BGR2RGB)
                         current_image = pygame.image.frombuffer(model.tostring(), model.shape[1::-1], "RGB")
                     if ready_to_crop:
-                      
+                        # current_image = pygame.image.frombuffer(model.tostring(), model.shape[1::-1], "RGB")
                         cv2.imwrite("models/" + str(datetime.datetime.now()) + ".jpg", final)
                         return final
 
@@ -97,7 +106,7 @@ def make_a_sample(screen):
                     refPt.append([event.pos[0] - camera_pos_x, event.pos[1] - camera_pos_y])
 
         if len(refPt) == 2:
-            
+            print(refPt)
             if refPt[0][1] > refPt[1][1]:
                 refPt[0][1], refPt[1][1] = refPt[1][1], refPt[0][1]
             if refPt[0][0] > refPt[1][0]:
@@ -111,11 +120,27 @@ def make_a_sample(screen):
             ready_to_crop = True
             refPt.append(0)
 
-        current_image = pygame.transform.scale(current_image, (640, 480))
         screen.blit(current_image, (camera_pos_x, camera_pos_y))
 
         pygame.display.update()
 
+        # if key == ord('c'):
+        #     refPt = []
+        #
+        #     cropping = False
+        #     # running = True
+        #     model = cv2.flip(capture.read()[1], 3)
+        #     clone = model.copy()
+        #     calibrate(refPt)
+        #     # if not c repeat loop utnlie success
+        #     if resp == ord('c'):
+        #         capture.release()
+        #         cv2.destroyAllWindows()
+        #         return
+        # elif key == ord('e'):
+        #     capture.release()
+        #     cv2.destroyAllWindows()
+        #     return
 
     capture.release()
     cv2.destroyAllWindows()

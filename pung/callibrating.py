@@ -9,11 +9,12 @@ import cv2
 
     
 
-def player_test(template1):
+def player_test(screen , CLOCK, template1):
+    MENU_OPTIONS = pygame.image.load(OPTIONS_BACKGROUND)
     player_1=Pad(1)
     player_2=Wall(2)
     ball=Ball()
-    exit=Exit(75,25,(0,0),"Exit")
+    exit=Exit(75,25,(WINDOWS_WIDTH-100,25),"Exit")
     buttons=[
         Button(150,25,(WINDOWS_WIDTH/2,25),"DELTA",start_value=250),
          Button(150,25,(WINDOWS_WIDTH/2,80),"SCALE",start_value=500),
@@ -77,6 +78,7 @@ def player_test(template1):
         pygame.display.update()
         
         CLOCK.tick(FPS)
+    screen.blit(MENU_OPTIONS,(0,0))
     return exit.data
 
 

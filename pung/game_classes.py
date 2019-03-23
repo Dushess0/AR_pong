@@ -27,7 +27,6 @@ class Pad:
     def draw(self,screen):
         screen.blit(self.image,(self.pos[0]-self.width,self.pos[1]-self.height))
     def move(self,where,what,camera_res=480):    
-        try:
             res = cv2.matchTemplate(where,what,cv2.TM_CCOEFF_NORMED)
             w, h = what.shape[::-1]
             loc = np.where( res >= self.threshold)
@@ -41,8 +40,7 @@ class Pad:
                 return 
             mean_y=int(statistics.median(Y))
             self.pos[1]=((2*mean_y+h)/2/camera_res)*(WINDOWS_HEIGHT+self.scale)-self.delta
-        except:
-            pass
+       
 class Wall(Pad):
     def __init__(self,number):
         super().__init__(number)
@@ -78,7 +76,7 @@ class Ball:
         else:
             y=1+x
         self.vec_speed=[x,y]
-        print(self.vec_speed)
+        
 
     def respawn(self,winner):
           self.generate_angle()
@@ -108,7 +106,7 @@ class Ball:
            
                 if self.pos[1]<WALLS[2]+ self.radius:   #top
                     self.vec_speed[1]=-self.vec_speed[1]
-                    print(self.vec_speed)
+                  
                             
                 if self.pos[1]>WALLS[3]- self.radius:  #bottom
                     self.vec_speed[1]=-self.vec_speed[1]

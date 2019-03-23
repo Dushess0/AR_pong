@@ -6,23 +6,28 @@ from pygame.locals import *
 import choose 
 import cv2
 
-MENU_PLAY = pygame.image.load('data/menu/PLAY.jpg')
-MENU_OPTIONS = pygame.image.load('data/menu/OPTIONS.jpg')
-MENU_EXIT = pygame.image.load('data/menu/EXIT.jpg')
-WIN_WIDTH = 1920
-WIN_HEIGHT = 1080
+MENU_PLAY = pygame.image.load(MENU_PLAY_IMAGE)
+MENU_OPTIONS = pygame.image.load(MENU_OPTIONS_IMAGE)
+MENU_EXIT = pygame.image.load(MENU_EXIT_IMAGE)
+
+MENU_PLAY=pygame.transform.scale(MENU_PLAY,(WINDOWS_WIDTH,WINDOWS_HEIGHT))
+MENU_OPTIONS=pygame.transform.scale(MENU_OPTIONS,(WINDOWS_WIDTH,WINDOWS_HEIGHT))
+MENU_EXIT=pygame.transform.scale(MENU_EXIT,(WINDOWS_WIDTH,WINDOWS_HEIGHT))
+
+
 CLOCK = pygame.time.Clock()
 
 pygame.init()
-SWITCH_SOUND = pygame.mixer.Sound('data/sound_effects/DM-CGS-21.wav')
+pygame.font.init()
+SWITCH_SOUND = pygame.mixer.Sound(MENU_BUTTON_SOUND)
 
-screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+screen = pygame.display.set_mode((WINDOWS_WIDTH, WINDOWS_HEIGHT))
 pygame.display.set_caption("AR Pong")
-pygame.mixer.music.load('data/Bluemillenium-Ivresse.mp3')
+pygame.mixer.music.load(SOUNDTRACK)
 pygame.mixer.music.play(-1)
 samples = {}
-template1 = cv2.imread('green.jpg', 0)
-template2 = cv2.imread('phone2.jpg', 0)
+template1 = None
+template2 = None
 
 switch = 1
 run = True
@@ -51,9 +56,7 @@ while run:
                 if switch == 1:
                     if 0 in samples.keys() and 1 in samples.keys():
                         if __name__ == '__main__':
-                           
-                            choose.main(screen,template1,template1,player1_im,player2_im)
-                            maingame_loop.game_loop(screen,CLOCK,player1_im , player2_im)
+                            choose.main(screen , CLOCK, samples[0] , samples[1] , player1_im , player2_im)
                     else:
                         pass
 
@@ -71,7 +74,7 @@ while run:
                         player2_im = pygame.transform.scale(player2_im, (int(0.2 * WINDOWS_WIDTH),int(0.6 * WINDOWS_HEIGHT)))
                         template2 = cv2.imread(samples[1], 0)
 
-                    print(samples)
+                  
                 elif switch == 3:
                     run = False
 

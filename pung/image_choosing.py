@@ -4,7 +4,7 @@ from settings import *
 from os import path, walk
 from pygame.locals import *
 
-IMG_PLACE = (WIN_WIDTH * 0.6, WIN_HEIGHT * 0.4)
+IMG_PLACE = (WINDOWS_WIDTH * 0.6, WINDOWS_HEIGHT * 0.4)
 
 
 class Player_profile:
@@ -14,7 +14,7 @@ class Player_profile:
         self.image_name = img_name
         self.image_path = path.join(self.game_folder, img_name)
         self.image = pygame.image.load(self.image_path)
-        self.enlarged = pygame.transform.scale(self.image, (int(WIN_WIDTH * 0.35), int(WIN_HEIGHT * 0.5)))
+        self.enlarged = pygame.transform.scale(self.image, (int(WINDOWS_WIDTH * 0.35), int(WINDOWS_HEIGHT * 0.5)))
         self.screen = screen
       
         self.exist = True
@@ -56,23 +56,17 @@ def clean_models(models):
             models.remove(model)
 
 
-def print_object(models, screen, font):
-    for model in models:
-        text = font.render(model.id, True, (0, 128, 0))
-        screen.blit(text,
-                    ((model.position[0] + model.item_width) / 2, model.position[1]))
-    pygame.display.update()
 
 
 def main(screen, samples):
   
     profile = samples
 
-    pygame.font.init()
-    FONT = pygame.font.Font("data/Anurati-Regular.otf", 85)
-    FONT_SHADOW = pygame.font.Font("data/Anurati-Regular.otf", 85)
-    MENU_OPTIONS = pygame.image.load('data/menu/OPTIONS_MAIN.jpg')
-    SWITCH_SOUND = pygame.mixer.Sound('data/sound_effects/DM-CGS-21.wav')
+   
+    FONT = pygame.font.Font(PLAYER_NUMBER_FONT, 85)
+    FONT_SHADOW = pygame.font.Font(PLAYER_NUMBER_FONT, 85)
+    MENU_OPTIONS = pygame.image.load(OPTIONS_BACKGROUND)
+    SWITCH_SOUND = pygame.mixer.Sound(MENU_BUTTON_SOUND)
     switch = 1
     run_options = True
 
@@ -93,10 +87,10 @@ def main(screen, samples):
         screen.blit(MENU_OPTIONS, (0, 0))
      
         if switch == 1:
-            player_text_shadow = FONT_SHADOW.render(player_names[current_player], False, Color("#ba157e"))
+            player_text_shadow = FONT_SHADOW.render(player_names[current_player], False, Color(PLAYER_NUMBER_COLOR))
             screen.blit(player_text_shadow, (277, 118))
 
-        player_text = FONT.render(player_names[current_player], False, Color("#df8f2f"))
+        player_text = FONT.render(player_names[current_player], False, Color(PLAYER_NUMBER_SHADOW_COLOR))
         screen.blit(player_text, (275, 120))
 
         for event in pygame.event.get():
