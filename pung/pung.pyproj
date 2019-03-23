@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>97389201-becf-4120-b354-0887db9afec4</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>pung.py</StartupFile>
+    <StartupFile>Game.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +21,26 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="pung.py" />
+    <Compile Include="Button_Classes.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="callibrating.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="choose.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Game.py" />
+    <Compile Include="game_classes.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="image_choosing.py" />
+    <Compile Include="image_cropper.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="maingame_loop.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="settings.py">
       <SubType>Code</SubType>
     </Compile>
