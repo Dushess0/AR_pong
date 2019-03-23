@@ -56,6 +56,7 @@ while run:
                 if switch == 1:
                     if 0 in samples.keys() and 1 in samples.keys():
                         if __name__ == '__main__':
+                            screen.fill((0,0,0))
                             choose.main(screen , CLOCK, samples[0] , samples[1] , player1_im , player2_im)
                     else:
                         pass

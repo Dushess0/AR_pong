@@ -1,8 +1,11 @@
 import pygame as pg
-from settings import USUAL_FONT
+from settings import USUAL_FONT,FONT_SCALE
+
+
+
 class Button:
-    def __init__(self, width, height, pos, text="", font=USUAL_FONT, button_color=(128, 128, 128), font_size=32,
-                 font_pos=(10, 10), font_color=(255, 0, 0), start_value=50 , normalize = 0):
+    def __init__(self, width, height, pos, text="", font=USUAL_FONT, button_color=(128, 128, 128), font_size=64,
+                  font_color=(255, 0, 0), start_value=50 , normalize = 0):
         self.width = width
         self.height = height
 
@@ -10,7 +13,16 @@ class Button:
         self.text = text
         self.font = font
         self.font_size = font_size
-        self.font_pos = font_pos
+        
+        self.font_size= int(font_size*FONT_SCALE)
+        lenght=len(text)
+        print(self.text)
+        print(self.pos)
+        print(self.width)
+        print(self.height)
+        
+       
+    
         self.font_color = font_color
         self.button_color = button_color
         self.value = start_value
@@ -41,6 +53,8 @@ class Button:
         self.image = pg.Surface((self.width * 2, self.height * 2))
         self.image.fill(self.button_color)
         FONT = FONT.render(text, False, self.font_color)
+        lenght=len(text)
+        self.font_pos = [(self.width-lenght*self.font_size/4),(self.height-self.font_size/2)]
         self.image.blit(FONT, self.font_pos)
 
 

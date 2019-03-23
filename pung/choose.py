@@ -12,8 +12,9 @@ import callibrating
 
 pygame.font.init()
 MENU_OPTIONS = pygame.image.load(OPTIONS_BACKGROUND)
+MENU_OPTIONS=pygame.transform.scale(MENU_OPTIONS,(WINDOWS_WIDTH,WINDOWS_HEIGHT))
 COLOR = (0, 125, 200)
-FONT = pygame.font.Font(PLAYER_NUMBER_FONT, 85)
+
 
 LEFT_CALLIBRATE_BUTTON = [0.05 * WINDOWS_WIDTH, 0.8 * WINDOWS_HEIGHT]
 RIGHT_CALLIBRATE_BUTTON = [0.75 * WINDOWS_WIDTH, 0.8 * WINDOWS_HEIGHT]
@@ -77,13 +78,13 @@ def main(screen, clock, template1, template2, im1, im2):
                             0.05 * WINDOWS_HEIGHT,
                             LEFT_CALLIBRATE_BUTTON,
                             "Callibrate player one",
-                            normalize=1)
+                            normalize=1,font_size=30)
         r_call_btn = Button(0.1 * WINDOWS_WIDTH,
                             0.05 * WINDOWS_HEIGHT,
                             RIGHT_CALLIBRATE_BUTTON,
-                            "Callibrate player two",
+                            "Callibrate player two",font_size=30,
                             normalize=1)
-        menu = Button(0.025 * WINDOWS_WIDTH,
+        menu = Button(0.05 * WINDOWS_WIDTH,
                       0.025 * WINDOWS_HEIGHT,
                       MENU_BUTTON,
                       "Menu",

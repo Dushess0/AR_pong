@@ -66,6 +66,7 @@ def main(screen, samples):
     FONT = pygame.font.Font(PLAYER_NUMBER_FONT, 85)
     FONT_SHADOW = pygame.font.Font(PLAYER_NUMBER_FONT, 85)
     MENU_OPTIONS = pygame.image.load(OPTIONS_BACKGROUND)
+    MENU_OPTIONS=pygame.transform.scale(MENU_OPTIONS,(WINDOWS_WIDTH,WINDOWS_HEIGHT))
     SWITCH_SOUND = pygame.mixer.Sound(MENU_BUTTON_SOUND)
     switch = 1
     run_options = True
