@@ -52,8 +52,8 @@ while run:
                     if 0 in samples.keys() and 1 in samples.keys():
                         if __name__ == '__main__':
                            
-
-                            start.main(screen , samples[0] , samples[1] , player1_im , player2_im)
+                            choose.main(screen,template1,template1,player1_im,player2_im)
+                            maingame_loop.game_loop(screen,CLOCK,player1_im , player2_im)
                     else:
                         pass
 
@@ -81,4 +81,4 @@ while run:
         switch = 3
 
     pygame.display.update()
-    CLOCK.tick(60)
+    CLOCK.tick(FPS)

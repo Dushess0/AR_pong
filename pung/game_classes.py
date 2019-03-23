@@ -27,20 +27,22 @@ class Pad:
     def draw(self,screen):
         screen.blit(self.image,(self.pos[0]-self.width,self.pos[1]-self.height))
     def move(self,where,what,camera_res=480):    
-        
-        res = cv2.matchTemplate(where,what,cv2.TM_CCOEFF_NORMED)
-        w, h = what.shape[::-1]
-        loc = np.where( res >= self.threshold)
+        try:
+            res = cv2.matchTemplate(where,what,cv2.TM_CCOEFF_NORMED)
+            w, h = what.shape[::-1]
+            loc = np.where( res >= self.threshold)
    
      
-        Y=[]
-        for pt in zip(*loc[::-1]):
+            Y=[]
+            for pt in zip(*loc[::-1]):
        
-            Y.append(pt[1])
-        if Y==[]:
-            return 
-        mean_y=int(statistics.median(Y))
-        self.pos[1]=((2*mean_y+h)/2/camera_res)*(WINDOWS_HEIGHT+self.scale)-self.delta
+                Y.append(pt[1])
+            if Y==[]:
+                return 
+            mean_y=int(statistics.median(Y))
+            self.pos[1]=((2*mean_y+h)/2/camera_res)*(WINDOWS_HEIGHT+self.scale)-self.delta
+        except:
+            pass
 class Wall(Pad):
     def __init__(self,number):
         super().__init__(number)

@@ -1,4 +1,3 @@
-
 import numpy as np
 import cv2
 import time
@@ -8,7 +7,6 @@ import pygame
 from pygame.locals import *
 
 refPt = []
-
 
 def calibrate(refPt):
     global model, resp
@@ -38,7 +36,6 @@ def calibrate(refPt):
         return []
 
 
-
 def crop(event, x, y, flags, params):
     global refPt, cropping, model, clone
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -55,12 +52,13 @@ def crop(event, x, y, flags, params):
 
 
 
+
+
 def make_a_sample(screen):
     global model, clone, cropping, resp
     capture = cv2.VideoCapture(0)
     capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
     capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 1500)
- 
 
     camera_on = True
     run = True
@@ -75,7 +73,7 @@ def make_a_sample(screen):
             image = cv2.flip(image, 3)
             current_image = pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
 
-   
+    
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -90,7 +88,7 @@ def make_a_sample(screen):
                         model = cv2.cvtColor(model, cv2.COLOR_BGR2RGB)
                         current_image = pygame.image.frombuffer(model.tostring(), model.shape[1::-1], "RGB")
                     if ready_to_crop:
-                     
+                      
                         cv2.imwrite("models/" + str(datetime.datetime.now()) + ".jpg", final)
                         return final
 
@@ -113,11 +111,11 @@ def make_a_sample(screen):
             ready_to_crop = True
             refPt.append(0)
 
+        current_image = pygame.transform.scale(current_image, (640, 480))
         screen.blit(current_image, (camera_pos_x, camera_pos_y))
 
         pygame.display.update()
 
-    
 
     capture.release()
     cv2.destroyAllWindows()

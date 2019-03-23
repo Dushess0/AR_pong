@@ -24,13 +24,13 @@ class Button:
         x, y = pg.mouse.get_pos()
         if x > self.pos[0] - self.width and x < self.pos[0] + self.width:
             if y > self.pos[1] - self.height and y < self.pos[1] + self.height:
-                if arg.any():
+                if arg!=None:
                     self.action(function, arg)
                 else:
                     self.action()
 
     def action(self, function, arg=None):
-        if arg.any():
+        if arg!=None:
             function(arg)
 
 

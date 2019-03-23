@@ -40,7 +40,7 @@ def main(screen ,template1 , template2 , im1 , im2):
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
 
-                play.react_on_click(call_game , (template1 , template2))
+                play.react_on_click(call_game , [template1 , template2])
                 l_call_btn.react_on_click()
                 r_call_btn.react_on_click()
         pygame.draw.rect(screen,COLOR,PLAYER_ONE_IMAGE,2)
