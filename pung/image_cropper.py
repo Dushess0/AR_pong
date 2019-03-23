@@ -28,7 +28,7 @@ def calibrate(refPt):
         cv2.imshow("frame", gray)
         resp = cv2.waitKey(0)
         if resp == ord('c'):
-            cv2.imwrite("models/" + str(datetime.datetime.now()) + ".jpg", gray)
+            cv2.imwrite(SAMPLES_FOLDER+ str(datetime.datetime.now()) + ".jpg", gray)
             return gray
         else:
             return []
@@ -89,7 +89,7 @@ def make_a_sample(screen):
                         current_image = pygame.image.frombuffer(model.tostring(), model.shape[1::-1], "RGB")
                     if ready_to_crop:
                       
-                        cv2.imwrite("models/" + str(datetime.datetime.now()) + ".jpg", final)
+                        cv2.imwrite(SAMPLES_FOLDER + str(datetime.datetime.now()) + ".jpg", final)
                         return final
 
             if event.type == MOUSEBUTTONDOWN and not camera_on:

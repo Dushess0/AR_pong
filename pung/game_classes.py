@@ -63,7 +63,7 @@ class Ball:
         self.radius=BALL_RADIUS
 
     def move(self,dt,pad1,pad2):
-        
+     
         self.pos[0]+=dt*self.speed*self.vec_speed[0]
         self.pos[1]+=dt*self.speed*self.vec_speed[1]
         self.collide(pad1,pad2)
@@ -113,8 +113,11 @@ class Ball:
                     
                 if self.pos[0]>WALLS[1]:
                     self.respawn(pad1)
+                    print(str(pad1.score)+":"+str(pad2.score))
                    
                 if self.pos[0]<WALLS[0]:
                     self.respawn(pad2)
+                    print(str(pad1.score)+":"+str(pad2.score))
+
                   
              
