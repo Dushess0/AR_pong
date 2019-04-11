@@ -8,7 +8,7 @@ import cv2
 
 def game_loop(screen, template1, template2, CLOCK):
     try:
-        with open(CALLIBRATION_FILE, 'r') as f:
+        with open(calibration_FILE, 'r') as f:
             calib_data = json.load(f)
     except FileNotFoundError:
         pass

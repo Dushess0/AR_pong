@@ -7,7 +7,7 @@ import image_choosing
 import maingame_loop
 import cv2
 import numpy
-import callibrating
+import calibration
 
 
 pygame.font.init()
@@ -33,7 +33,7 @@ def call_game(argv):
     template1=cv2.imread(template1_filename,0)
     template2=cv2.imread(template2_filename,0)
 
-    with open(CALLIBRATION_FILE, 'w+') as f:
+    with open(calibration_FILE, 'w+') as f:
         json.dump(calib_data, f)
 
     maingame_loop.game_loop(screen=screen,
@@ -48,13 +48,13 @@ def return_to_menu():
     running = False
 
 
-def call_callibration(argv):
+def call_calibration(argv):
     screen = argv[0]
     clock = argv[1]
     model = argv[2]
     player = argv[3]
     template=cv2.imread(model,0)
-    data = callibrating.player_test(screen, clock, template)
+    data = calibration.player_test(screen, clock, template)
     calib_data[player] = data
     
 
@@ -62,7 +62,7 @@ def call_callibration(argv):
 def main(screen, clock, template1, template2, im1, im2):
     global running , calib_data
     try:
-        with open(CALLIBRATION_FILE, 'r') as f:
+        with open(calibration_FILE, 'r') as f:
             calib_data = json.load(f)
     except FileNotFoundError:
         pass
@@ -100,8 +100,8 @@ def main(screen, clock, template1, template2, im1, im2):
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 play.react_on_click(call_game, [screen, clock, template1, template2])
-                l_call_btn.react_on_click(call_callibration, [screen, clock, template1 , 0])
-                r_call_btn.react_on_click(call_callibration, [screen, clock, template2, 1])
+                l_call_btn.react_on_click(call_calibration, [screen, clock, template1 , 0])
+                r_call_btn.react_on_click(call_calibration, [screen, clock, template2, 1])
                 menu.react_on_click(return_to_menu)
         pygame.draw.rect(screen, COLOR, PLAYER_ONE_IMAGE, 2)
         pygame.draw.rect(screen, COLOR, PLAYER_TWO_IMAGE, 2)

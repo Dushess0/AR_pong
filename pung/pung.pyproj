@@ -22,7 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Button_Classes.py" />
-    <Compile Include="callibrating.py" />
+    <Compile Include="calibration.py" />
     <Compile Include="choose.py" />
     <Compile Include="crop.py" />
     <Compile Include="Game.py" />

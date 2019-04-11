@@ -4,7 +4,7 @@ PAD_WIDTH=15
 PAD_HEIGHT=70
 BALL_RADIUS=15
 WINDOWS_HEIGHT=900
-WINDOWS_WIDTH=1200
+WINDOWS_WIDTH=1600
 BALL_SPEED=200
 BALL_ACCELERATION=50
 BALL_STARTPOS=[WINDOWS_WIDTH/2,WINDOWS_HEIGHT/2]
@@ -16,7 +16,7 @@ DEFAULT_HEIGHT=1080  # dont change
 DEFAULT_WIDTH=1980   # dont change
 #image recognition
 
-CALLIBRATION_FILE="callibration_values.json"
+calibration_FILE="calibration_values.json"
 calib_data = [{'scale': 500, 'delta': 250, 'threshold': 0.3},{'scale': 500, 'delta': 250, 'threshold': 0.3}]
 
 #images, fonts and audio
